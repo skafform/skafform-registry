@@ -8,6 +8,13 @@
     "./runtime": "./src/runtime.server.ts",
     "./layouts/user": "./src/layouts/UserLayout.tsx"
   },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.21.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0"
+  },
   "skafform": {
     "requires": []
   }
