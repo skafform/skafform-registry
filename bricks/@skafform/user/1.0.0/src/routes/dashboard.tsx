@@ -32,7 +32,7 @@ export default function DashboardPage({ loaderData }: { loaderData: { user: Skaf
       }}>
         <Row label="Nom"      value={user.name} />
         <Row label="Email"    value={user.email} />
-        <Row label="Rôle"     value={user.role} />
+        <Row label="Role"     value={user.role} />
         <Row label="Provider" value={user.provider} />
         <Row label="Membre depuis" value={new Date(user.createdAt).toLocaleDateString()} />
       </div>
