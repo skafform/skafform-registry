@@ -1,0 +1,32 @@
+{
+  "version": "1",
+  "bricks": {
+    "@skafform/core": {
+      "description": "Hub central — types partagés, DB, service registry",
+      "latest": "1.0.0",
+      "free": true,
+      "versions": ["1.0.0"]
+    },
+    "@skafform/auth-better-auth": {
+      "description": "Authentification via Better Auth — login, register, sessions",
+      "latest": "1.0.0",
+      "free": true,
+      "versions": ["1.0.0"],
+      "requires": ["@skafform/core"]
+    },
+    "@skafform/admin": {
+      "description": "Interface d'administration — gestion des utilisateurs",
+      "latest": "1.0.0",
+      "free": true,
+      "versions": ["1.0.0"],
+      "requires": ["@skafform/core", "@skafform/auth-better-auth"]
+    },
+    "@skafform/user": {
+      "description": "Espace utilisateur — dashboard personnel",
+      "latest": "1.0.0",
+      "free": true,
+      "versions": ["1.0.0"],
+      "requires": ["@skafform/core", "@skafform/auth-better-auth"]
+    }
+  }
+}

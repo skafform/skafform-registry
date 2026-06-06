@@ -1,0 +1,14 @@
+{
+  "name": "@skafform/core",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./db": "./src/db/index.ts",
+    "./runtime": "./src/runtime.server.ts",
+    "./layouts/user": "./src/layouts/UserLayout.tsx"
+  },
+  "skafform": {
+    "requires": []
+  }
+}

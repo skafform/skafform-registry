@@ -1,0 +1,80 @@
+.container {
+  width: 100%;
+  max-width: 400px;
+  padding: var(--skafform-spacing-xl);
+  background: var(--skafform-muted);
+  border: 1px solid var(--skafform-border);
+  border-radius: var(--skafform-radius-lg);
+  box-shadow: var(--skafform-shadow-md);
+}
+
+.title {
+  font-family: var(--skafform-font-heading);
+  font-size: var(--skafform-font-size-xl);
+  font-weight: 700;
+  color: var(--skafform-foreground);
+  margin-bottom: var(--skafform-spacing-lg);
+}
+
+.error {
+  color: var(--skafform-error);
+  font-size: var(--skafform-font-size-sm);
+  margin-bottom: var(--skafform-spacing-md);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--skafform-spacing-md);
+}
+
+.input {
+  width: 100%;
+  padding: var(--skafform-spacing-sm) var(--skafform-spacing-md);
+  background: var(--skafform-background);
+  border: 1px solid var(--skafform-border);
+  border-radius: var(--skafform-radius-md);
+  color: var(--skafform-foreground);
+  font-size: var(--skafform-font-size-base);
+  font-family: var(--skafform-font-body);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--skafform-primary);
+}
+
+.button {
+  width: 100%;
+  padding: var(--skafform-spacing-sm) var(--skafform-spacing-md);
+  background: var(--skafform-primary);
+  color: var(--skafform-primary-fg);
+  border: none;
+  border-radius: var(--skafform-radius-md);
+  font-size: var(--skafform-font-size-base);
+  font-weight: 600;
+  font-family: var(--skafform-font-body);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: var(--skafform-primary-hover);
+}
+
+.footer {
+  margin-top: var(--skafform-spacing-md);
+  text-align: center;
+  font-size: var(--skafform-font-size-sm);
+  color: var(--skafform-muted-fg);
+}
+
+.link {
+  color: var(--skafform-primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

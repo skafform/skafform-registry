@@ -1,0 +1,25 @@
+{
+  "name": "@skafform/auth-better-auth",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/auth.server.ts",
+    "./adapter": "./src/adapter.server.ts"
+  },
+  "skafform": {
+    "requires": ["core"],
+    "adapter": "src/adapter.server.ts",
+    "nav": [
+      { "label": "Login",    "href": "/login",    "location": "user-menu", "visibility": "guest",         "order": 10 },
+      { "label": "Register", "href": "/register", "location": "user-menu", "visibility": "guest",         "order": 20 },
+      { "label": "Logout",   "href": "/logout",   "location": "user-menu", "visibility": "authenticated", "order": 100 }
+    ],
+    "routes": [
+      { "path": "login",      "file": "src/routes/login.tsx" },
+      { "path": "register",   "file": "src/routes/register.tsx" },
+      { "path": "logout",     "file": "src/routes/logout.tsx" },
+      { "path": "api/auth/*", "file": "src/routes/api.auth.$.tsx" }
+    ]
+  }
+}
