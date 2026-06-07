@@ -1,0 +1,19 @@
+{
+  "name": "@skafform/lite-docs",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "skafform": {
+    "requires": [],
+    "routes": [
+      { "path": "docs/search", "file": "src/routes/docs.search.tsx", "layout": false },
+      { "path": "docs/*", "file": "src/routes/docs.$.tsx" }
+    ]
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^3.0.0",
+    "react": "^19.0.0"
+  }
+}

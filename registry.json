@@ -27,6 +27,13 @@
       "free": true,
       "versions": ["1.0.0"],
       "requires": ["@skafform/core", "@skafform/auth-better-auth"]
+    },
+    "@skafform/lite-docs": {
+      "description": "Documentation intégrée — MDX, sidebar auto-générée, recherche full-text",
+      "latest": "0.1.0",
+      "free": true,
+      "versions": ["0.1.0"],
+      "requires": []
     }
   }
 }
