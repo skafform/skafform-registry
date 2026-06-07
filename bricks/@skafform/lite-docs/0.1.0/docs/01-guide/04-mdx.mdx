@@ -1,0 +1,51 @@
+---
+title: Écrire en MDX
+---
+
+MDX est un format qui combine Markdown et JSX. Tu peux utiliser toute la syntaxe Markdown standard ainsi que des composants React.
+
+## Markdown standard
+
+```mdx
+# Titre h1
+## Titre h2
+### Titre h3
+
+**Gras**, *italique*, `code inline`
+
+- Liste
+- à puces
+
+1. Liste
+2. numérotée
+```
+
+## Blocs de code
+
+````mdx
+```ts
+const message = "Hello world"
+console.log(message)
+```
+````
+
+## Liens
+
+```mdx
+[Texte du lien](https://example.com)
+[Lien interne](/docs/guide/installation)
+```
+
+## Table des matières
+
+Les titres `##` et `###` apparaissent automatiquement dans la table des matières à droite de la page. Les ancres sont générées depuis le texte du titre.
+
+## Composants React
+
+Tu peux importer et utiliser des composants React directement dans un fichier MDX :
+
+```mdx
+import MonComposant from "../components/MonComposant"
+
+<MonComposant prop="valeur" />
+```

@@ -1,0 +1,23 @@
+---
+title: Recherche
+---
+
+La recherche est intégrée directement dans la sidebar. Elle fonctionne entièrement côté client — aucun service externe requis.
+
+## Fonctionnement
+
+À chaque requête, le serveur scanne tous les fichiers `.mdx`, extrait le texte brut et filtre par correspondance. Les résultats incluent le titre de la page et un extrait du contenu.
+
+## Utilisation
+
+Tape n'importe quel mot dans le champ de recherche en haut de la sidebar. Les résultats apparaissent en dropdown. Clique sur un résultat pour naviguer vers la page.
+
+## Limites
+
+La recherche effectue une correspondance exacte sur le texte (`includes`). Elle ne supporte pas :
+
+- La tolérance aux fautes de frappe (fuzzy search)
+- La recherche par expression régulière
+- Le tri par pertinence
+
+Pour une documentation volumineuse, une solution comme Orama peut être intégrée ultérieurement.

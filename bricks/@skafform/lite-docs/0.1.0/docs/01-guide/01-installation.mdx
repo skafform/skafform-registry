@@ -1,0 +1,35 @@
+---
+title: Installation
+---
+
+## Prérequis
+
+- Un projet skafform existant
+- Node.js 18+
+
+## Ajouter le brick
+
+```bash
+skafform add @skafform/lite-docs
+```
+
+Cette commande :
+
+- Copie le brick dans `bricks/@skafform/lite-docs/`
+- Enregistre les routes `docs/*` et `docs/search` dans `skafform-bricks.json`
+- Ajoute le lien "Docs" dans la navigation principale
+- Merge les dépendances npm dans `package.json`
+
+## Installer les dépendances
+
+```bash
+npm install
+```
+
+## Créer le dossier docs
+
+```bash
+mkdir docs
+```
+
+Ajoute un premier fichier `docs/index.mdx` et lance le serveur de développement.

@@ -1,0 +1,41 @@
+---
+title: Structure des fichiers
+---
+
+## Convention de nommage
+
+Les fichiers et dossiers peuvent être préfixés par un nombre pour contrôler l'ordre d'affichage dans la sidebar. Le préfixe est retiré de l'URL et du label.
+
+```
+docs/
+  index.mdx              → /docs
+  01-guide/
+    01-installation.mdx  → /docs/guide/installation
+    02-structure.mdx     → /docs/guide/structure
+  02-reference/
+    01-api.mdx           → /docs/reference/api
+```
+
+## Fichier index.mdx
+
+`index.mdx` à la racine de `docs/` est toujours affiché en premier dans la sidebar et accessible à `/docs`.
+
+## Sous-dossiers
+
+Un sous-dossier devient un groupe dans la sidebar. Les fichiers à l'intérieur sont listés comme items du groupe.
+
+Les sous-dossiers imbriqués ne sont pas supportés pour l'instant — un seul niveau de groupement.
+
+## Frontmatter
+
+Chaque fichier peut déclarer un frontmatter YAML :
+
+```mdx
+---
+title: Titre de la page
+---
+
+Contenu de la page...
+```
+
+Le `title` est utilisé comme label dans la sidebar et comme titre `h1` de la page. Sans `title`, le nom du fichier est utilisé.
