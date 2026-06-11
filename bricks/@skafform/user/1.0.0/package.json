@@ -6,7 +6,8 @@
     ".": "./src/index.ts"
   },
   "skafform": {
-    "requires": ["core", "auth"],
+    "requires": ["core"],
+    "requiresAdapters": ["auth"],
     "nav": [
       { "label": "Dashboard", "href": "/dashboard", "location": "user-menu", "visibility": "authenticated", "order": 10 }
     ],

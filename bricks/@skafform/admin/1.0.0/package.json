@@ -7,7 +7,8 @@
     "./types": "./src/types/index.ts"
   },
   "skafform": {
-    "requires": ["core", "auth"],
+    "requires": ["core"],
+    "requiresAdapters": ["auth"],
     "nav": [
       { "label": "Administration", "href": "/admin", "location": "user-menu", "visibility": "admin", "order": 20 }
     ],
