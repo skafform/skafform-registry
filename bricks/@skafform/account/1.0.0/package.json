@@ -1,0 +1,25 @@
+{
+  "name": "@skafform/account",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "skafform": {
+    "requires": ["core"],
+    "requiresAdapters": ["auth"],
+    "nav": [
+      { "label": "Mon compte", "href": "/my-account", "location": "user-menu", "visibility": "authenticated", "order": 10 }
+    ],
+    "layout": "src/layouts/AccountLayout.tsx",
+    "routes": [
+      { "path": "dashboard",           "file": "src/routes/dashboard.tsx" },
+      { "path": "my-account",          "file": "src/routes/my-account.tsx" },
+      { "path": "my-account/profile",  "file": "src/routes/my-account.profile.tsx" },
+      { "path": "my-account/password", "file": "src/routes/my-account.password.tsx" }
+    ],
+    "adminSections": [
+      { "label": "Champs de profil", "href": "/admin/meta-keys", "file": "src/routes/admin.meta-keys.tsx" }
+    ]
+  }
+}

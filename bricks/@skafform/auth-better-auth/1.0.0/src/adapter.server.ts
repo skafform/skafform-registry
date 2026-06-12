@@ -12,8 +12,8 @@ async function fetchUserByAuthId(authId: string): Promise<SkafformUserData | nul
       provider: coreSchema.skafformUsers.provider,
       role: coreSchema.skafformUsers.role,
       createdAt: coreSchema.skafformUsers.createdAt,
-      email: authSchema.user.email,
-      name: authSchema.user.name,
+      email: coreSchema.skafformUsers.email,
+      name: coreSchema.skafformUsers.name,
       image: authSchema.user.image,
       emailVerified: authSchema.user.emailVerified,
     })
@@ -30,7 +30,7 @@ async function fetchUserByAuthId(authId: string): Promise<SkafformUserData | nul
     provider: r.provider,
     role: r.role,
     createdAt: r.createdAt,
-    email: r.email ?? "",
+    email: r.email,
     name: r.name ?? "",
     image: r.image ?? undefined,
     emailVerified: r.emailVerified ?? false,
@@ -46,8 +46,8 @@ export const authAdapter: SkafformAuthAdapter = {
         provider: coreSchema.skafformUsers.provider,
         role: coreSchema.skafformUsers.role,
         createdAt: coreSchema.skafformUsers.createdAt,
-        email: authSchema.user.email,
-        name: authSchema.user.name,
+        email: coreSchema.skafformUsers.email,
+        name: coreSchema.skafformUsers.name,
         image: authSchema.user.image,
         emailVerified: authSchema.user.emailVerified,
       })
@@ -60,7 +60,7 @@ export const authAdapter: SkafformAuthAdapter = {
       provider: r.provider,
       role: r.role,
       createdAt: r.createdAt,
-      email: r.email ?? "",
+      email: r.email,
       name: r.name ?? "",
       image: r.image ?? undefined,
       emailVerified: r.emailVerified ?? false,
@@ -75,8 +75,8 @@ export const authAdapter: SkafformAuthAdapter = {
         provider: coreSchema.skafformUsers.provider,
         role: coreSchema.skafformUsers.role,
         createdAt: coreSchema.skafformUsers.createdAt,
-        email: authSchema.user.email,
-        name: authSchema.user.name,
+        email: coreSchema.skafformUsers.email,
+        name: coreSchema.skafformUsers.name,
         image: authSchema.user.image,
         emailVerified: authSchema.user.emailVerified,
       })
@@ -93,10 +93,40 @@ export const authAdapter: SkafformAuthAdapter = {
       provider: r.provider,
       role: r.role,
       createdAt: r.createdAt,
-      email: r.email ?? "",
+      email: r.email,
       name: r.name ?? "",
       image: r.image ?? undefined,
       emailVerified: r.emailVerified ?? false,
+    }
+  },
+
+  updateProfile: async (userId: string, data: { name?: string }): Promise<void> => {
+    const rows = await db
+      .select({ authId: coreSchema.skafformUsers.authId })
+      .from(coreSchema.skafformUsers)
+      .where(eq(coreSchema.skafformUsers.id, userId))
+      .limit(1)
+
+    if (!rows[0] || data.name === undefined) return
+
+    const { authId } = rows[0]
+    await db.update(coreSchema.skafformUsers)
+      .set({ name: data.name })
+      .where(eq(coreSchema.skafformUsers.id, userId))
+    await db.update(authSchema.user)
+      .set({ name: data.name })
+      .where(eq(authSchema.user.id, authId))
+  },
+
+  changePassword: async (request: Request, data: { currentPassword: string; newPassword: string }): Promise<{ success: boolean; error?: string }> => {
+    try {
+      await auth.api.changePassword({
+        body: { currentPassword: data.currentPassword, newPassword: data.newPassword, revokeOtherSessions: false },
+        headers: request.headers,
+      })
+      return { success: true }
+    } catch (err) {
+      return { success: false, error: (err as Error).message }
     }
   },
 

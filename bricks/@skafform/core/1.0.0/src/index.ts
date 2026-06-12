@@ -15,6 +15,8 @@ export interface SkafformAuthAdapter {
   getUserById: (id: string) => Promise<SkafformUserData | null>
   deleteUser: (id: string) => Promise<void>
   getSession: (request: Request) => Promise<SkafformUserData | null>
+  updateProfile: (userId: string, data: { name?: string }) => Promise<void>
+  changePassword: (request: Request, data: { currentPassword: string; newPassword: string }) => Promise<{ success: boolean; error?: string }>
 }
 
 export interface SkafformConfig {

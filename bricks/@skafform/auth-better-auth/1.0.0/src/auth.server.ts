@@ -25,6 +25,8 @@ export const auth = betterAuth({
           await db.insert(coreSchema.skafformUsers).values({
             authId: user.id,
             provider: "better-auth",
+            email: user.email,
+            name: user.name ?? undefined,
           })
         },
       },

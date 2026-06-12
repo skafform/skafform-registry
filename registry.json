@@ -21,12 +21,12 @@
       "versions": ["1.0.0"],
       "requires": ["@skafform/core", "@skafform/auth-better-auth"]
     },
-    "@skafform/user": {
-      "description": "Espace utilisateur — dashboard personnel",
+    "@skafform/account": {
+      "description": "Hub du profil utilisateur — dashboard, mon compte, profil, mot de passe",
       "latest": "1.0.0",
       "free": true,
       "versions": ["1.0.0"],
-      "requires": ["@skafform/core", "@skafform/auth-better-auth"]
+      "requires": ["@skafform/core"]
     },
     "@skafform/lite-docs": {
       "description": "Documentation intégrée — MDX, sidebar auto-générée, recherche full-text",

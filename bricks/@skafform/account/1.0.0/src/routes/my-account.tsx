@@ -1,13 +1,15 @@
+import { redirect } from "react-router"
 import type { LoaderFunctionArgs } from "react-router"
 import { getAdapter } from "@skafform/core/runtime"
 import type { SkafformUserData } from "@skafform/core"
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await getAdapter().getSession(request)
-  return { user: user as SkafformUserData }
+  if (!user) return redirect("/login")
+  return { user }
 }
 
-export default function DashboardPage({ loaderData }: { loaderData: { user: SkafformUserData } }) {
+export default function MyAccountPage({ loaderData }: { loaderData: { user: SkafformUserData } }) {
   const { user } = loaderData
 
   return (
@@ -19,7 +21,7 @@ export default function DashboardPage({ loaderData }: { loaderData: { user: Skaf
         marginBottom: "var(--skafform-spacing-lg)",
         fontFamily: "var(--skafform-font-heading)",
       }}>
-        Dashboard
+        Mon compte
       </h1>
       <div style={{
         background: "var(--skafform-muted)",
@@ -29,12 +31,37 @@ export default function DashboardPage({ loaderData }: { loaderData: { user: Skaf
         display: "flex",
         flexDirection: "column",
         gap: "var(--skafform-spacing-sm)",
+        marginBottom: "var(--skafform-spacing-xl)",
       }}>
-        <Row label="Nom"      value={user.name} />
-        <Row label="Email"    value={user.email} />
-        <Row label="Role"     value={user.role} />
-        <Row label="Provider" value={user.provider} />
+        <Row label="Nom"          value={user.name} />
+        <Row label="Email"        value={user.email} />
+        <Row label="Rôle"         value={user.role} />
         <Row label="Membre depuis" value={new Date(user.createdAt).toLocaleDateString()} />
+      </div>
+      <div style={{ display: "flex", gap: "var(--skafform-spacing-md)" }}>
+        <a href="/my-account/profile" style={{
+          padding: `var(--skafform-spacing-sm) var(--skafform-spacing-lg)`,
+          background: "var(--skafform-primary)",
+          color: "var(--skafform-primary-fg)",
+          borderRadius: "var(--skafform-radius)",
+          textDecoration: "none",
+          fontSize: "var(--skafform-font-size-sm)",
+          fontWeight: 500,
+        }}>
+          Modifier le profil
+        </a>
+        <a href="/my-account/password" style={{
+          padding: `var(--skafform-spacing-sm) var(--skafform-spacing-lg)`,
+          background: "var(--skafform-muted)",
+          color: "var(--skafform-foreground)",
+          border: "1px solid var(--skafform-border)",
+          borderRadius: "var(--skafform-radius)",
+          textDecoration: "none",
+          fontSize: "var(--skafform-font-size-sm)",
+          fontWeight: 500,
+        }}>
+          Changer le mot de passe
+        </a>
       </div>
     </div>
   )
