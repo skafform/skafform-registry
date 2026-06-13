@@ -29,7 +29,7 @@ export default function AdminUsersPage({ loaderData }: { loaderData: { user: Ska
       <table style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
-            {["Nom", "Email", "Provider", "Créé le"].map(h => (
+            {["Nom", "Email", "Rôle", "Créé le"].map(h => (
               <th key={h} style={{
                 textAlign: "left",
                 color: "var(--skafform-muted-fg)",
@@ -44,7 +44,7 @@ export default function AdminUsersPage({ loaderData }: { loaderData: { user: Ska
             <tr key={u.id}>
               <td style={{ color: "var(--skafform-foreground)", padding: "var(--skafform-spacing-sm)", borderBottom: "1px solid var(--skafform-border)" }}>{u.name}</td>
               <td style={{ color: "var(--skafform-foreground)", padding: "var(--skafform-spacing-sm)", borderBottom: "1px solid var(--skafform-border)" }}>{u.email}</td>
-              <td style={{ color: "var(--skafform-muted-fg)", padding: "var(--skafform-spacing-sm)", borderBottom: "1px solid var(--skafform-border)" }}>{u.provider}</td>
+              <td style={{ color: "var(--skafform-muted-fg)", padding: "var(--skafform-spacing-sm)", borderBottom: "1px solid var(--skafform-border)" }}>{u.role}</td>
               <td style={{ color: "var(--skafform-muted-fg)", padding: "var(--skafform-spacing-sm)", borderBottom: "1px solid var(--skafform-border)" }}>
                 {new Date(u.createdAt).toLocaleDateString()}
               </td>

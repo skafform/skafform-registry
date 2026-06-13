@@ -7,7 +7,7 @@
       "free": true,
       "versions": ["1.0.0"]
     },
-    "@skafform/auth-better-auth": {
+    "@skafform/auth": {
       "description": "Authentification via Better Auth — login, register, sessions",
       "latest": "1.0.0",
       "free": true,
@@ -15,11 +15,11 @@
       "requires": ["@skafform/core"]
     },
     "@skafform/admin": {
-      "description": "Interface d'administration — gestion des utilisateurs",
+      "description": "Interface d'administration — gestion des utilisateurs et Website Management",
       "latest": "1.0.0",
       "free": true,
       "versions": ["1.0.0"],
-      "requires": ["@skafform/core", "@skafform/auth-better-auth"]
+      "requires": ["@skafform/core"]
     },
     "@skafform/account": {
       "description": "Hub du profil utilisateur — dashboard, mon compte, profil, mot de passe",

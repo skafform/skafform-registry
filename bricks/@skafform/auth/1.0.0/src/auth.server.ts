@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { db, schema as coreSchema } from "@skafform/core/db"
+import { db } from "@skafform/core/db"
 import * as schema from "./db/schema"
 
 export const auth = betterAuth({
@@ -18,17 +18,12 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  databaseHooks: {
-    user: {
-      create: {
-        after: async (user) => {
-          await db.insert(coreSchema.skafformUsers).values({
-            authId: user.id,
-            provider: "better-auth",
-            email: user.email,
-            name: user.name ?? undefined,
-          })
-        },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: "user",
+        required: false,
       },
     },
   },

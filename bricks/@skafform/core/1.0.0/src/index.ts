@@ -1,10 +1,8 @@
 export interface SkafformUserData {
   id: string
-  authId: string
-  provider: string
   email: string
-  role: string
   name: string
+  role: string
   image?: string
   emailVerified: boolean
   createdAt: Date
