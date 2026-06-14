@@ -37,3 +37,17 @@ export const skafformCustomizeSettings = pgTable("skafform_customize_settings", 
   key:   text("key").primaryKey(),
   value: text("value").notNull(),
 })
+
+export const skafformEmailSettings = pgTable("skafform_email_settings", {
+  key:   text("key").primaryKey(),
+  value: text("value").notNull(),
+})
+
+export const skafformPages = pgTable("skafform_pages", {
+  id:       serial("id").primaryKey(),
+  slug:     text("slug").notNull().unique(),
+  title:    text("title").notNull(),
+  template: text("template").notNull().default("blank"),
+  content:  text("content").notNull().default("[]"),
+  status:   text("status").notNull().default("draft"),
+})

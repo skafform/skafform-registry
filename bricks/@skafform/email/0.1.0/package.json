@@ -1,0 +1,12 @@
+{
+  "name": "@skafform/email",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./resend":   "./src/resend.server.ts",
+    "./postmark": "./src/postmark.server.ts"
+  },
+  "skafform": {
+    "requires": ["core"]
+  }
+}

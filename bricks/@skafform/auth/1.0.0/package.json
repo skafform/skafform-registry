@@ -23,6 +23,9 @@
       { "path": "register",   "file": "src/routes/register.tsx" },
       { "path": "logout",     "file": "src/routes/logout.tsx" },
       { "path": "api/auth/*", "file": "src/routes/api.auth.$.tsx" }
+    ],
+    "adminSections": [
+      { "label": "Authentification", "href": "/admin/auth", "file": "src/routes/admin.auth.tsx", "group": "settings" }
     ]
   }
 }

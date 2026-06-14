@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core"
+import { pgTable, text, timestamp, boolean, primaryKey } from "drizzle-orm/pg-core"
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -7,6 +7,8 @@ export const user = pgTable("user", {
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
   role: text("role").notNull().default("user"),
+  banned: boolean("banned").default(false),
+  banExpires: timestamp("ban_expires"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 })
@@ -37,6 +39,18 @@ export const account = pgTable("account", {
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 })
+
+export const skafformAuthSettings = pgTable("skafform_auth_settings", {
+  key:   text("key").primaryKey(),
+  value: text("value").notNull(),
+})
+
+export const skafformAuthMessages = pgTable("skafform_auth_messages", {
+  type:     text("type").notNull(),
+  language: text("language").notNull(),
+  subject:  text("subject").notNull(),
+  html:     text("html").notNull(),
+}, (t) => [primaryKey({ columns: [t.type, t.language] })])
 
 export const verification = pgTable("verification", {
   id: text("id").primaryKey(),

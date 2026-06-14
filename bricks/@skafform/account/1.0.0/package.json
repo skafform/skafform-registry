@@ -19,7 +19,7 @@
       { "path": "my-account/password", "file": "src/routes/my-account.password.tsx" }
     ],
     "adminSections": [
-      { "label": "Champs de profil", "href": "/admin/meta-keys", "file": "src/routes/admin.meta-keys.tsx" }
+      { "label": "Champs de profil", "href": "/admin/meta-keys", "file": "src/routes/admin.meta-keys.tsx", "group": "users" }
     ]
   }
 }

@@ -1,15 +1,68 @@
 import { Outlet, NavLink } from "react-router"
 import adminSections from "virtual:skafform/admin-sections"
 
-const navItems = [
-  { to: "/admin",            label: "Dashboard" },
-  { to: "/admin/users",      label: "Utilisateurs" },
-  { to: "/admin/navigation", label: "Navigation" },
-  { to: "/admin/theme",      label: "Thème" },
-  { to: "/admin/customize",  label: "Personnalisation" },
+type BrickSection = { label: string; href: string; group?: string }
+
+type NavGroup = {
+  label: string
+  key: string
+  items: { to: string; label: string }[]
+}
+
+const coreGroups: NavGroup[] = [
+  {
+    label: "Contenu",
+    key: "content",
+    items: [
+      { to: "/admin/pages", label: "Pages" },
+    ],
+  },
+  {
+    label: "Apparence",
+    key: "appearance",
+    items: [
+      { to: "/admin/theme",     label: "Thème" },
+      { to: "/admin/customize", label: "Personnalisation" },
+    ],
+  },
+  {
+    label: "Structure",
+    key: "structure",
+    items: [
+      { to: "/admin/navigation", label: "Navigation" },
+    ],
+  },
+  {
+    label: "Utilisateurs",
+    key: "users",
+    items: [
+      { to: "/admin/users", label: "Utilisateurs" },
+    ],
+  },
+  {
+    label: "Réglages",
+    key: "settings",
+    items: [
+      { to: "/admin/configuration", label: "Email" },
+    ],
+  },
 ]
 
 export default function AdminLayout() {
+  const sections = adminSections as BrickSection[]
+
+  const groupedSections = coreGroups.map(group => ({
+    ...group,
+    items: [
+      ...group.items,
+      ...sections
+        .filter(s => s.group === group.key)
+        .map(s => ({ to: s.href, label: s.label })),
+    ],
+  }))
+
+  const extensions = sections.filter(s => !s.group || !coreGroups.find(g => g.key === s.group))
+
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <aside style={{
@@ -21,6 +74,7 @@ export default function AdminLayout() {
         flexDirection: "column",
         padding: "var(--skafform-spacing-lg)",
         gap: "var(--skafform-spacing-xs)",
+        overflowY: "auto",
       }}>
         <div style={{
           fontSize: "var(--skafform-font-size-lg)",
@@ -32,41 +86,51 @@ export default function AdminLayout() {
           Admin
         </div>
 
-        <nav style={{ display: "flex", flexDirection: "column", gap: "var(--skafform-spacing-xs)" }}>
-          {navItems.map(({ to, label }) => (
-            <NavLink key={to} to={to} end style={navLinkStyle}>
-              {label}
-            </NavLink>
-          ))}
-        </nav>
+        <NavLink to="/admin" end style={navLinkStyle}>
+          Dashboard
+        </NavLink>
 
-        {adminSections.length > 0 && (
-          <>
-            <div style={{
-              fontSize: "var(--skafform-font-size-xs)",
-              fontWeight: 600,
-              color: "var(--skafform-muted-fg)",
-              textTransform: "uppercase",
-              letterSpacing: "0.05em",
-              marginTop: "var(--skafform-spacing-lg)",
-              marginBottom: "var(--skafform-spacing-xs)",
-              paddingLeft: "var(--skafform-spacing-md)",
-            }}>
-              Website Management
-            </div>
-            <nav style={{ display: "flex", flexDirection: "column", gap: "var(--skafform-spacing-xs)" }}>
-              {adminSections.map((section: { label: string; href: string }) => (
-                <NavLink key={section.href} to={section.href} end style={navLinkStyle}>
-                  {section.label}
-                </NavLink>
-              ))}
-            </nav>
-          </>
+        {groupedSections.map(group => (
+          <NavGroup key={group.key} label={group.label} items={group.items} />
+        ))}
+
+        {extensions.length > 0 && (
+          <NavGroup
+            label="Extensions"
+            items={extensions.map(s => ({ to: s.href, label: s.label }))}
+          />
         )}
       </aside>
+
       <main style={{ flex: 1, overflow: "auto" }}>
         <Outlet />
       </main>
+    </div>
+  )
+}
+
+function NavGroup({ label, items }: { label: string; items: { to: string; label: string }[] }) {
+  if (items.length === 0) return null
+  return (
+    <div style={{ marginTop: "var(--skafform-spacing-md)" }}>
+      <div style={{
+        fontSize: "var(--skafform-font-size-xs)",
+        fontWeight: 600,
+        color: "var(--skafform-muted-fg)",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
+        paddingLeft: "var(--skafform-spacing-md)",
+        marginBottom: "var(--skafform-spacing-xs)",
+      }}>
+        {label}
+      </div>
+      <nav style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+        {items.map(({ to, label }) => (
+          <NavLink key={to} to={to} end style={navLinkStyle}>
+            {label}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   )
 }

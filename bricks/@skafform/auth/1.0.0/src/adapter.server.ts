@@ -7,14 +7,16 @@ import { eq } from "drizzle-orm"
 type AuthUser = typeof authSchema.user.$inferSelect
 
 function mapUser(r: AuthUser): SkafformUserData {
+  const u = r as AuthUser & { role?: string; banned?: boolean | null }
   return {
-    id: r.id,
-    email: r.email,
-    name: r.name ?? "",
-    role: (r as AuthUser & { role: string }).role ?? "user",
-    image: r.image ?? undefined,
-    emailVerified: r.emailVerified,
-    createdAt: r.createdAt,
+    id: u.id,
+    email: u.email,
+    name: u.name ?? "",
+    role: u.role ?? "user",
+    image: u.image ?? undefined,
+    emailVerified: u.emailVerified,
+    createdAt: u.createdAt,
+    banned: u.banned ?? false,
   }
 }
 

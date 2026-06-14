@@ -17,8 +17,12 @@
       { "path": "admin",            "file": "src/routes/admin.tsx" },
       { "path": "admin/users",      "file": "src/routes/admin.users.tsx" },
       { "path": "admin/navigation", "file": "src/routes/admin.navigation.tsx" },
-      { "path": "admin/theme",      "file": "src/routes/admin.theme.tsx" },
-      { "path": "admin/customize",  "file": "src/routes/admin.customize.tsx" }
+      { "path": "admin/theme",          "file": "src/routes/admin.theme.tsx" },
+      { "path": "admin/customize",      "file": "src/routes/admin.customize.tsx" },
+      { "path": "admin/pages",          "file": "src/routes/admin.pages.tsx" },
+      { "path": "admin/pages/new",      "file": "src/routes/admin.pages.new.tsx" },
+      { "path": "admin/pages/:id/edit", "file": "src/routes/admin.pages.$id.edit.tsx" },
+      { "path": "admin/configuration",  "file": "src/routes/admin.configuration.tsx" }
     ]
   }
 }
