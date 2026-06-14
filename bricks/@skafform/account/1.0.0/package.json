@@ -9,7 +9,7 @@
     "requires": ["core"],
     "requiresAdapters": ["auth"],
     "nav": [
-      { "label": "Mon compte", "href": "/my-account", "location": "user-menu", "visibility": "authenticated", "order": 10 }
+      { "key": "my-account", "label": "Mon compte", "href": "/my-account", "location": "user-menu", "visibility": "authenticated", "order": 10 }
     ],
     "layout": "src/layouts/AccountLayout.tsx",
     "routes": [

@@ -5,6 +5,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./db": "./src/db/index.ts",
+    "./nav": "./src/nav.server.ts",
+    "./theme": "./src/theme.server.ts",
+    "./customize": "./src/customize.server.ts",
     "./runtime": "./src/runtime.server.ts",
     "./layouts/user": "./src/layouts/UserLayout.tsx"
   },

@@ -10,12 +10,15 @@
     "requires": ["core"],
     "requiresAdapters": ["auth"],
     "nav": [
-      { "label": "Administration", "href": "/admin", "location": "user-menu", "visibility": "admin", "order": 20 }
+      { "key": "admin", "label": "Administration", "href": "/admin", "location": "user-menu", "visibility": "admin", "order": 20 }
     ],
     "layout": "src/layouts/AdminLayout.tsx",
     "routes": [
-      { "path": "admin",       "file": "src/routes/admin.tsx" },
-      { "path": "admin/users", "file": "src/routes/admin.users.tsx" }
+      { "path": "admin",            "file": "src/routes/admin.tsx" },
+      { "path": "admin/users",      "file": "src/routes/admin.users.tsx" },
+      { "path": "admin/navigation", "file": "src/routes/admin.navigation.tsx" },
+      { "path": "admin/theme",      "file": "src/routes/admin.theme.tsx" },
+      { "path": "admin/customize",  "file": "src/routes/admin.customize.tsx" }
     ]
   }
 }

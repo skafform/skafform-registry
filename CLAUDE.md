@@ -57,6 +57,20 @@ skafform-registry/
 Champs obligatoires : `description`, `latest`, `free`, `versions`.
 Champ optionnel : `requires` (bricks qui doivent être installés avant).
 
+## Exports de `@skafform/core`
+
+| Export | Fichier | Usage |
+|--------|---------|-------|
+| `.` | `src/index.ts` | Types publics |
+| `./db` | `src/db/index.ts` | `db` + toutes les tables Drizzle |
+| `./nav` | `src/nav.server.ts` | `getNav()`, `seedIfEmpty()` |
+| `./theme` | `src/theme.server.ts` | `getThemeOverrides()`, `invalidateThemeCache()` |
+| `./customize` | `src/customize.server.ts` | `getCustomize()`, `invalidateCustomizeCache()` |
+| `./runtime` | `src/runtime.server.ts` | `getAdapter()`, `registerAdapter()` |
+| `./layouts/user` | `src/layouts/UserLayout.tsx` | Layout compte utilisateur |
+
+Tous les exports `*.server.ts` sont **server-only** — jamais importés côté client.
+
 ## `package.json` d'un brick
 
 ```json
@@ -72,7 +86,7 @@ Champ optionnel : `requires` (bricks qui doivent être installés avant).
     "requires": ["@skafform/core"],
     "scaffold": ["docs"],
     "nav": [
-      { "label": "Nom", "href": "/route", "location": "primary", "visibility": "public", "order": 50 }
+      { "key": "mon-item", "label": "Nom", "href": "/route", "location": "primary", "visibility": "public", "order": 50 }
     ],
     "routes": [
       { "path": "route", "file": "src/routes/route.tsx" },
@@ -92,6 +106,16 @@ Champ optionnel : `requires` (bricks qui doivent être installés avant).
 3. Copier `package.json` + `src/` (+ `docs/` si scaffold)
 4. Ajouter l'entrée dans `registry.json`
 
+## Champ `nav` dans `package.json`
+
+La nav est la **déclaration** du brick — la source de vérité pour les items. Le runtime (assignation des locations) est géré en DB.
+
+- `key` — identifiant stable, obligatoire. Utilisé pour les updates sans conflit (`brick + key` = composite unique)
+- `location` — location par défaut suggérée au seed initial. L'admin peut changer en DB via `/admin/navigation`
+- La nav **n'est pas** écrite dans `skafform-bricks.json` — seule la DB est source de vérité à runtime
+
+Au premier chargement de `/admin/navigation`, `seedIfEmpty()` lit les `package.json` des bricks installés et peuple la DB. Les items sans location connue dans le thème vont dans le groupe "Non assigné" (`menuId = null`).
+
 ## Visibilité `nav`
 
 | Valeur | Qui voit |
@@ -110,6 +134,60 @@ Champ optionnel : `requires` (bricks qui doivent être installés avant).
 | `@skafform/admin` | 1.0.0 | core, auth-better-auth |
 | `@skafform/user` | 1.0.0 | core, auth-better-auth |
 | `@skafform/lite-docs` | 0.1.0 | — |
+
+## Système thème et personnalisation
+
+### Thème CSS (`skafform_theme_settings`)
+
+La table `skafform_theme_settings` stocke des overrides de tokens CSS :
+
+- **key** : nom de variable CSS, ex. `--skafform-primary`
+- **value** : valeur CSS, ex. `#e63946`
+
+Le layout `default.tsx` injecte ces overrides via `<style>:root{...}</style>` en SSR à chaque requête. Les defaults viennent de `themes/<theme>/child/theme.json` → champ `tokens`.
+
+L'admin gère les overrides via `/admin/theme`. La page lit les tokens depuis `theme.json` et affiche un color picker pour les valeurs hex, un text input pour les autres.
+
+```ts
+import { getThemeOverrides, invalidateThemeCache } from "@skafform/core/theme"
+```
+
+### Personnalisation de contenu (`skafform_customize_settings`)
+
+La table `skafform_customize_settings` stocke des overrides de contenu :
+
+- **key** : chemin dot-notation, ex. `navbar.logo`, `hero.title`
+- **value** : valeur texte
+
+Les defaults viennent de `themes/<theme>/child/theme.json` → champ `customize`. La DB merge par-dessus les defaults à runtime via `setDeepValue()`.
+
+Le layout `default.tsx` appelle `getCustomize()` et passe le résultat aux pages enfants via `<Outlet context={{ customize }}>`. Les pages lisent via `useOutletContext()`.
+
+```ts
+import { getCustomize, invalidateCustomizeCache } from "@skafform/core/customize"
+```
+
+### `customize_schema` dans `theme.json`
+
+Le thème déclare quels champs sont éditables par l'admin :
+
+```json
+{
+  "customize_schema": {
+    "navbar.logo":       { "type": "text",     "label": "Logo du site",  "group": "Identité" },
+    "hero.title":        { "type": "text",     "label": "Titre héros",   "group": "Page d'accueil" },
+    "about.description": { "type": "textarea", "label": "Description",   "group": "À propos" }
+  }
+}
+```
+
+Types supportés : `text`, `textarea`, `color`. L'admin gère ces champs via `/admin/customize`.
+
+**Principe** : le themeur contrôle ce qui est éditable. Le dev ne peut pas ajouter des champs customize sans modifier le thème.
+
+### Cache in-memory
+
+Les deux modules utilisent un cache module-level (`let cache = null`) invalidé à chaque sauvegarde admin. Pattern identique dans `nav.server.ts`, `theme.server.ts`, `customize.server.ts`.
 
 ## Registry distant (GitHub)
 

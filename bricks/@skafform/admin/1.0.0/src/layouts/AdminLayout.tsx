@@ -2,8 +2,11 @@ import { Outlet, NavLink } from "react-router"
 import adminSections from "virtual:skafform/admin-sections"
 
 const navItems = [
-  { to: "/admin",       label: "Dashboard" },
-  { to: "/admin/users", label: "Utilisateurs" },
+  { to: "/admin",            label: "Dashboard" },
+  { to: "/admin/users",      label: "Utilisateurs" },
+  { to: "/admin/navigation", label: "Navigation" },
+  { to: "/admin/theme",      label: "Thème" },
+  { to: "/admin/customize",  label: "Personnalisation" },
 ]
 
 export default function AdminLayout() {

@@ -9,7 +9,7 @@
     "requires": [],
     "scaffold": ["docs"],
     "nav": [
-      { "label": "Docs", "href": "/docs", "location": "primary", "visibility": "public", "order": 50 }
+      { "key": "docs", "label": "Docs", "href": "/docs", "location": "primary", "visibility": "public", "order": 50 }
     ],
     "routes": [
       { "path": "docs/search", "file": "src/routes/docs.search.tsx", "layout": false },
